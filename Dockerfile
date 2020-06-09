@@ -8,4 +8,4 @@ FROM alpine
 WORKDIR /app
 COPY --from=build-env /src/ii /app/
 
-RUN ./ii
+RUN ./ii wget

@@ -1,6 +1,6 @@
 package shellexecutors
 
 // Shells
-type shellexecutors interface {
-	exec(name string, arg ...string) (string, string, error)
+type ShellExecutor interface {
+	Exec(name string, arg ...string) (string, string, error)
 }

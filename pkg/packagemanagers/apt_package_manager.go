@@ -1,13 +1,17 @@
 package packagemanagers
 
-import "fmt"
+import (
+	"fmt"
 
-type aptPackageManager struct {
-	myShell shellexecutors
+	"github.com/aaronnbrock/install-it/pkg/shellexecutors"
+)
+
+type AptPackageManager struct {
+	MyShell shellexecutors.ShellExecutor
 }
 
-func (aptPM aptPackageManager) install(packageName string) error {
-	_, stderr, err := aptPM.myShell.exec("sh", "-c", fmt.Sprintf("apt install %s", packageName))
+func (aptPM AptPackageManager) Install(packageName string) error {
+	_, stderr, err := aptPM.MyShell.Exec("apt", "install", packageName)
 	if stderr != "" {
 		return fmt.Errorf(stderr)
 	}

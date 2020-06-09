@@ -1,6 +1,6 @@
 package packagemanagers
 
 // Package Managers
-type packageManager interface {
-	install(string) error
+type PackageManager interface {
+	Install(string) error
 }

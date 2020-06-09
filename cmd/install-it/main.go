@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
+	"github.com/aaronnbrock/install-it/pkg/packagemanagers"
+	"github.com/aaronnbrock/install-it/pkg/shellexecutors"
 	"github.com/urfave/cli"
-	"github.com/aaronnbrock/pkg/shellexecutors"
 )
 
 func main() {
@@ -13,8 +15,18 @@ func main() {
 		Name:  "install-it",
 		Usage: "make an explosive entrance",
 		Action: func(c *cli.Context) error {
-			sh := shellexecutors.localExecShell{}
-			sh.exec("ls")
+			sh := shellexecutors.LocalShellExecutor{}
+			pm := packagemanagers.ApkPackageManager{MyShell: sh}
+
+			packageName := c.Args().Get(0)
+
+			err := pm.Install(packageName)
+
+			if err != nil {
+				fmt.Printf("Failed to install '%s'\n", packageName)
+			} else {
+				fmt.Printf("Sucessfully installed '%s'\n", packageName)
+			}
 
 			return nil
 		},

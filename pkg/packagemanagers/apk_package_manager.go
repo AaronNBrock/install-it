@@ -2,14 +2,16 @@ package packagemanagers
 
 import (
 	"fmt"
+
+	"github.com/aaronnbrock/install-it/pkg/shellexecutors"
 )
 
-type apkPackageManager struct {
-	myShell main.shellexecutors
+type ApkPackageManager struct {
+	MyShell shellexecutors.ShellExecutor
 }
 
-func (apkPM apkPackageManager) install(packageName string) error {
-	_, stderr, err := apkPM.myShell.exec("sh", "-c", fmt.Sprintf("apk add %s", packageName))
+func (apkPM ApkPackageManager) Install(packageName string) error {
+	_, stderr, err := apkPM.MyShell.Exec("apk", "add", packageName)
 	if stderr != "" {
 		return fmt.Errorf(stderr)
 	}

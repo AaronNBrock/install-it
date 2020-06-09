@@ -5,9 +5,9 @@ import (
 	osexec "os/exec"
 )
 
-type localExecShell struct{}
+type LocalShellExecutor struct{}
 
-func (localExecShell) exec(name string, arg ...string) (string, string, error) {
+func (LocalShellExecutor) Exec(name string, arg ...string) (string, string, error) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 	cmd := osexec.Command(name, arg...)
