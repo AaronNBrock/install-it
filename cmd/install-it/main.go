@@ -16,7 +16,12 @@ func main() {
 		Usage: "make an explosive entrance",
 		Action: func(c *cli.Context) error {
 			sh := shellexecutors.LocalShellExecutor{}
-			pm := packagemanagers.ApkPackageManager{MyShell: sh}
+			pm := packagemanagers.PackageManagerWrapper{
+				PackageManagers: []packagemanagers.PackageManager{
+					packagemanagers.ApkPackageManager{MyShell: sh},
+					packagemanagers.NewAptPackageManager(sh),
+				},
+			}
 
 			packageName := c.Args().Get(0)
 
